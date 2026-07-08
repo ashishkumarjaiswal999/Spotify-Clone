@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-   
+
 }
 
 .mainbox {
@@ -11,38 +11,103 @@
     height: 100vh;
     overflow-y: hidden;
 }
-.boxleft{
+
+.boxleft {
     width: 20%;
-    
+
 }
+
 .boxleft1 {
     border: 6px solid black;
     height: 20vh;
-    background-color: rgb(36, 41, 39);
+    background-color: rgb(26, 30, 29);
     margin-left: 0px;
     padding-left: 0px;
     margin-top: 5px;
     border-radius: 10px;
 
+
 }
+
 .boxleft2 {
     border: 6px solid black;
     height: 76vh;
-    background-color: rgb(36, 41, 39);
+    background-color: rgb(26, 30, 29);
     margin-left: 0px;
     padding-left: 0px;
     border-radius: 10px;
-    
+
 
 }
 
 .boxright {
     border: 6px solid black;
     height: 97.5vh;
-    background-color: rgb(36, 41, 39);
+    background-color: rgb(26, 30, 29);
     width: 80%;
     margin-right: 0px;
     padding-left: 0px;
     margin-top: 5px;
     border-radius: 10px;
+}
+
+.spotify {
+    display: flex;
+    font-size: 20px;
+    gap: 18px;
+}
+
+.home {
+    font-size: 20px;
+    display: flex;
+      gap: 18px;
+}
+
+.search {
+    font-size: 20px;
+    display: flex;
+      gap: 18px;
+}
+.box1contents{
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    margin-left: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 400;
+}
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.arrows{
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+.buttons{   
+    margin-right: 30px;
+    display: flex;
+    gap: 10px;
+}
+.signup{
+    border-radius: 20px;
+    height: 40px;
+    width: 80px;
+    background-color: rgb(26, 30, 29);
+    border-color: rgb(26, 30, 29);
+    border: 2px;
+    color: rgb(85, 89, 92);
+    font-size: large;
+}
+.login{
+    border-radius: 20px;
+    width: 80px;
+    font-weight: bold;
+}
+.main{
+    background-color:  rgb(44, 49, 48);
+    height: 100%;
 }
