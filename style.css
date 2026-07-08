@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.mainbox {
+    background-color: rgb(147, 15, 15);
+    color: aliceblue;
+    display: flex;
+    gap: 5px;
+    height: 100%;
+}
+
+.boxleft {
+    border: 6px solid black;
+    height: 50px;
+    width: 20%;
+    margin-left: 0px;
+    padding-left: 0px;
+    margin-top: 5px;
+
+}
+
+.boxright {
+    border: 6px solid black;
+    height: 50px;
+    width: 80%;
+    margin-right: 0px;
+    padding-left: 0px;
+    margin-top: 5px;
+}
