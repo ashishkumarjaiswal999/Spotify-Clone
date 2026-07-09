@@ -151,3 +151,29 @@
     margin-top: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+.card{
+    
+    height: 290px;
+    width: 210px;
+    background-color: rgb(39, 44, 44);
+    border-radius: 10px;    
+    justify-content: center;
+    display: flex;
+    
+
+    
+}
+.cards{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 15px;
+}
+.im{
+    border-radius: 10px;
+    height: 180px;
+    object-fit: cover;
+    width: 180px;
+    margin-top: 12px;
+    
+}
