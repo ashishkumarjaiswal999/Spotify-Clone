@@ -122,6 +122,7 @@
 .main {
     background-color: rgb(44, 49, 48);
     height: 92.2%;
+    position: relative;
 }
 
 .lib {
@@ -222,4 +223,24 @@
     text-decoration: underline;
     transform: scale(1.02);
     cursor: pointer ;
+}
+.playbar{
+    position: absolute;
+    bottom: 10px;
+    background-color: rgb(88, 99, 99);
+    width: 90%;
+    height: 8%;
+    border-radius: 10px;
+    left: 50px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn{
+    height: 25px;
+
+}
+.btns{
+    display: flex;
+    gap: 30px;
 }
