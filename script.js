@@ -20,20 +20,14 @@ async function main() {
     let songs = await getsongs();
     let audio = new Audio(songs[1]);
     let songli = document.querySelector(".oip")
-    console.log(songs)
     for (let index = 0; index < songs.length; index++) {
-        let k=songs[index].split("/songs/")[1];
-        let u=k.replaceAll("%20"," " )
-        let t=u.replaceAll("%5"," ");
-        let y=u.replaceAll(".mp3",".")
-        songli.innerHTML += `<li class="music"> ${y} </li>`;
+        let k = songs[index].split("/songs/")[1];
+        let u = k.replaceAll("%20", " ")
+        let t = u.replaceAll("%5", " ");
+        let y = u.replaceAll(".mp3", ".")
+        songli.innerHTML += `<li class="music normalhov"> ${y} </li>`;
 
     }
-
-
-    audio.addEventListener("loadedmetadata", () => {
-        console.log(audio.duration, audio.currentTime);
-    })
     let byn = document.querySelector(".play");
     byn.addEventListener("click", () => {
         //To play and pause using play btn
@@ -42,9 +36,17 @@ async function main() {
         } else {
             audio.pause();
         }
-        //currentTime
-        console.log(audio.currentTime);
     })
+    let f = document.querySelector(".songlist").getElementsByTagName("li");
+    for (let index = 0; index < f.length; index++) {
+        f[index].addEventListener("click", () => {
+            audio.src=songs[index];
+            audio.play();
+
+        })
+    }
+
+
 
 }
 main();

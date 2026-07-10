@@ -292,3 +292,12 @@
     border-radius: 5px;
 
 }
+
+.normalhov:hover {
+    cursor: pointer;
+    background-color: #454948;
+}
+.nhov:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
