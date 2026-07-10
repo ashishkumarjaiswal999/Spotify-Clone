@@ -25,26 +25,43 @@ async function main() {
         let u = k.replaceAll("%20", " ")
         let t = u.replaceAll("%5", " ");
         let y = u.replaceAll(".mp3", ".")
-        songli.innerHTML += `<li class="music normalhov"> ${y} </li>`;
-
+        songli.innerHTML += `<li class="music normalhov">&nbsp; ${y} </li>`;
     }
+
     let byn = document.querySelector(".play");
     byn.addEventListener("click", () => {
         //To play and pause using play btn
         if (audio.paused) {
             audio.play();
-            byn.src="assets/pause.svg"
+            byn.src = "/assets/pause.svg"
+
+
         } else {
             audio.pause();
-            byn.src="assets/play.svg"
+            byn.src = "/assets/play.svg"
         }
     })
+
     let f = document.querySelector(".songlist").getElementsByTagName("li");
     for (let index = 0; index < f.length; index++) {
         f[index].addEventListener("click", () => {
-            audio.src=songs[index];
+            audio.src = songs[index];
             audio.play();
 
+            let j = document.querySelector(".name");
+
+            j.innerHTML = decodeURIComponent(audio.src.split("/songs/")[1])
+                .replace(".mp3", "");
+            let h = document.querySelector(".dur");
+            audio.addEventListener("timeupdate", () => {
+                let minutes = Math.floor(audio.currentTime / 60);
+                let seconds = Math.floor(audio.currentTime % 60);
+
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+                h.innerHTML = `${minutes}:${seconds}`;
+            })
         })
     }
 

@@ -236,10 +236,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .btn {
     height: 25px;
+
 
 }
 
@@ -276,8 +278,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-
-
+    
 }
 
 .music {
@@ -300,4 +301,14 @@
 .nhov:hover{
     transform: scale(1.05);
     cursor: pointer;
+}
+.dur{
+    font-size: larger;
+    position: absolute;
+    right: 100px;
+}
+.name{
+    position: absolute;
+    left: 80px;
+    font-size: larger;
 }
