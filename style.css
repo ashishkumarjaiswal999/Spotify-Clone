@@ -255,6 +255,7 @@
     font-size: large;
     overflow-y: scroll;
     scrollbar-color: rgb(101, 85, 85);
+
 }
 
 .songlist::-webkit-scrollbar-thumb {
@@ -271,11 +272,23 @@
 }
 
 .oip {
-    list-style-position: outside;
-    margin-left: 20px;
+    list-style-position: inside;
     display: flex;
     flex-direction: column;
-    
-     gap: 10px;
+    gap: 10px;
+
+
+}
+
+.music {
+    width: 260px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    border: 2px solid rgb(80, 79, 79);
+    background-color: #2e3130;
+    border-radius: 5px;
 
 }

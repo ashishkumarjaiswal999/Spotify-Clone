@@ -20,14 +20,13 @@ async function main() {
     let songs = await getsongs();
     let audio = new Audio(songs[1]);
     let songli = document.querySelector(".oip")
-    songli.innerHTML=""
     console.log(songs)
     for (let index = 0; index < songs.length; index++) {
         let k=songs[index].split("/songs/")[1];
         let u=k.replaceAll("%20"," " )
         let t=u.replaceAll("%5"," ");
         let y=u.replaceAll(".mp3",".")
-        songli.innerHTML += `<li> ${y} </li>`;
+        songli.innerHTML += `<li class="music"> ${y} </li>`;
 
     }
 
