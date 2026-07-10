@@ -32,9 +32,11 @@ async function main() {
     byn.addEventListener("click", () => {
         //To play and pause using play btn
         if (audio.paused) {
-            audio.play()
+            audio.play();
+            byn.src="assets/pause.svg"
         } else {
             audio.pause();
+            byn.src="assets/play.svg"
         }
     })
     let f = document.querySelector(".songlist").getElementsByTagName("li");
