@@ -307,8 +307,8 @@
     position: absolute;
     right: 100px;
 }
-.name{
+.songname{
     position: absolute;
-    left: 80px;
+    left: 100px;
     font-size: larger;
 }
