@@ -89,6 +89,18 @@ async function main() {
         }
         duration.innerHTML = `${mins}:${secs}/${omins}:${osecs}`;
     })
+    document.addEventListener("keydown",(e)=>{
+        if (e.key===" ") {
+            if (audio.paused) {
+                audio.play();
+                pl.src="assets/pause.svg";
+            } else {
+                audio.pause();
+                pl.src="assets/play.svg";
+            }
+            
+        }
+    })
 
 }
 main();
