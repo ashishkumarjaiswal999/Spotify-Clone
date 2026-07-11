@@ -34,14 +34,6 @@ async function main() {
         let names = k.replaceAll(".mp3", "")
         plist.innerHTML += `<li class="normalhov music">${names}</li>`
     }
-    for (let index = 0; index < songarray.length; index++) {
-
-        let i = document.querySelector(".songname");
-        let o = songarray[index].split("/Songs/")[1];
-        let r = decodeURIComponent(o);
-        let j = r.replaceAll(".mp3", " ")
-        i.innerHTML = j;
-    }
 
     audio.addEventListener("timeupdate", () => {
         let mins = Math.floor(audio.currentTime / 60);
@@ -57,6 +49,33 @@ async function main() {
         duration.innerHTML = `${mins}:${secs}/${omins}:${osecs}`;
 
     })
+
+
+
+    let kik = document.querySelector(".oip").getElementsByTagName("li");
+    let i = document.querySelector(".songname");
+    let o = songarray[0].split("/Songs/")[1];
+    let r = decodeURIComponent(o);
+    let j = r.replaceAll(".mp3", " ")
+    i.innerHTML = j;
+    for (let index = 0; index < songarray.length; index++) {
+        kik[index].addEventListener("click", () => {
+            audio.src = songarray[index];
+            audio.play();
+            if (audio.paused) {
+                pl.src = "assets/play.svg"
+
+            } else {
+                pl.src = "assets/pause.svg"
+            }
+            let o = songarray[index].split("/Songs/")[1];
+            let r = decodeURIComponent(o);
+            let j = r.replaceAll(".mp3", " ")
+            i.innerHTML = j;
+
+        })
+    }
+
     audio.addEventListener("loadedmetadata", () => {
         let mins = Math.floor(audio.currentTime / 60);
         let omins = Math.floor(audio.duration / 60);
@@ -71,23 +90,7 @@ async function main() {
         duration.innerHTML = `${mins}:${secs}/${omins}:${osecs}`;
     })
 
-
-
-    let kik = document.querySelector(".oip").getElementsByTagName("li");
-    for (let index = 0; index < songarray.length; index++) {
-        kik[index].addEventListener("click", () => {
-            audio.src = songarray[index];
-            audio.play();
-            if (audio.paused) {
-                pl.src = "assets/play.svg"
-
-            } else {
-                pl.src = "assets/pause.svg"
-            }
-
-        })
-
-    }
 }
 main();
+
 
