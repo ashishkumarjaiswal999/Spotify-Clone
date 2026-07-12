@@ -1,108 +1,96 @@
-async function songsfetch() {
-    let fetchobj = await fetch("/assets/Songs/");
-    let txt = await fetchobj.text();
-    let folder = document.createElement("div");
-    folder.innerHTML = txt;
-    let data = folder.getElementsByTagName("a");
-    let songs = [];
-    for (let index = 0; index < data.length; index++) {
-        if (data[index].href.endsWith(".mp3")) {
-            songs.push(data[index].href);
+async function fetcher() {
+    let fetch1 = await fetch("/assets/Songs");
+    let fetch2 = await fetch1.text();
+    let fetch3 = document.createElement("div");
+    fetch3.innerHTML = fetch2;
+    let fetch4 = fetch3.getElementsByTagName("a")
+    let fetch5 = [];
+    for (let index = 0; index < fetch4.length; index++) {
+        if (fetch4[index].href.endsWith(".mp3")) {
+            fetch5.push(fetch4[index].href)
         }
-    }
-    return songs;
-}
 
+    }
+    return fetch5;
+}
 async function main() {
-    let songarray = await songsfetch();
+    let songarray = await fetcher();
     let audio = new Audio(songarray[0]);
-    let pl = document.querySelector(".play")
-    pl.addEventListener("click", () => {
+    let jplay = document.querySelector(".play");
+    let jdur = document.querySelector(".dur");
+    let jlist = document.querySelector(".oip");
+    let jsongname = document.querySelector(".songname");
+    let jeachsong = document.querySelector(".oip").getElementsByTagName("li")
+
+    jplay.addEventListener("click", () => {
         if (audio.paused) {
             audio.play();
-            pl.src = "/assets/pause.svg";
+            jplay.src = "/assets/pause.svg";
         } else {
             audio.pause();
-            pl.src = "/assets/play.svg";
+            jplay.src = "/assets/play.svg";
         }
     })
-    let duration = document.querySelector(".dur")
-    let plist = document.querySelector(".oip");
-    for (let index = 0; index < songarray.length; index++) {
-        let u = songarray[index].split("/Songs/")[1];
-        let k = decodeURIComponent(u);
-        let names = k.replaceAll(".mp3", "")
-        plist.innerHTML += `<li class="normalhov music">${names}</li>`
-    }
+
+
+    audio.addEventListener("loadedmetadata", () => {
+        let orgmins = Math.floor(audio.duration / 60);
+        let orgsecs = Math.floor(audio.duration % 60);
+        jdur.innerHTML = `0:00/${orgmins}:${orgsecs}`;
+    })
+    let songname1 = songarray[0];
+    let songname2 = songname1.split("/Songs/")[1];
+    let songname3 = decodeURIComponent(songname2)
+    songname4 = songname3.replaceAll(".mp3", "");
+    jsongname.innerHTML = songname4;
+
 
     audio.addEventListener("timeupdate", () => {
         let mins = Math.floor(audio.currentTime / 60);
-        let omins = Math.floor(audio.duration / 60);
         let secs = Math.floor(audio.currentTime % 60);
-        let osecs = Math.floor(audio.duration % 60);
+        let orgmins = Math.floor(audio.duration / 60);
+        let orgsecs = Math.floor(audio.duration % 60);
         if (secs < 10) {
             secs = "0" + secs;
         }
-        if (mins < 1) {
-            mins = "0" + mins;
-        }
-        duration.innerHTML = `${mins}:${secs}/${omins}:${osecs}`;
-
+        jdur.innerHTML = `${mins}:${secs}/${orgmins}:${orgsecs}`;
     })
 
-
-
-    let kik = document.querySelector(".oip").getElementsByTagName("li");
-    let i = document.querySelector(".songname");
-    let o = songarray[0].split("/Songs/")[1];
-    let r = decodeURIComponent(o);
-    let j = r.replaceAll(".mp3", " ")
-    i.innerHTML = j;
     for (let index = 0; index < songarray.length; index++) {
-        kik[index].addEventListener("click", () => {
-            audio.src = songarray[index];
-            audio.play();
-            if (audio.paused) {
-                pl.src = "assets/play.svg"
-
-            } else {
-                pl.src = "assets/pause.svg"
-            }
-            let o = songarray[index].split("/Songs/")[1];
-            let r = decodeURIComponent(o);
-            let j = r.replaceAll(".mp3", " ")
-            i.innerHTML = j;
-
-        })
+        let songname1 = songarray[index];
+        let songname2 = songname1.split("/Songs/")[1];
+        let songname3 = decodeURIComponent(songname2)
+        songname4 = songname3.replaceAll(".mp3", "");
+        jlist.innerHTML += `<li class="normalhov music">${songname4}</li>`;
     }
-
-    audio.addEventListener("loadedmetadata", () => {
-        let mins = Math.floor(audio.currentTime / 60);
-        let omins = Math.floor(audio.duration / 60);
-        let secs = Math.floor(audio.currentTime % 60);
-        let osecs = Math.floor(audio.duration % 60);
-        if (secs < 10) {
-            secs = "0" + secs;
-        }
-        if (mins < 1) {
-            mins = "0" + mins;
-        }
-        duration.innerHTML = `${mins}:${secs}/${omins}:${osecs}`;
-    })
-    document.addEventListener("keydown",(e)=>{
-        if (e.key===" ") {
+    console.log(jeachsong)
+    for (let index = 0; index < songarray.length; index++) {
+        jeachsong[index].addEventListener("click", () => {
+            audio.src = songarray[index];
             if (audio.paused) {
                 audio.play();
-                pl.src="assets/pause.svg";
+                jplay.src = "/assets/pause.svg";
             } else {
                 audio.pause();
-                pl.src="assets/play.svg";
+                jplay.src = "/assets/play.svg";
             }
-            
-        }
+            let songname1 = songarray[index];
+            let songname2 = songname1.split("/Songs/")[1];
+            let songname3 = decodeURIComponent(songname2)
+            songname4 = songname3.replaceAll(".mp3", "");
+            jsongname.innerHTML = songname4;
+        })
+
+    }
+    document.addEventListener("keydown", (e) => {
+        if (e.key === " ")
+            if (audio.paused) {
+                audio.play();
+                jplay.src = "/assets/pause.svg";
+            } else {
+                audio.pause();
+                jplay.src = "/assets/play.svg";
+            }
     })
-
 }
-main();
-
-
+main()
