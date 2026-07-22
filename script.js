@@ -118,15 +118,17 @@ async function main() {
     let playbtn = document.querySelector(".play");
     let playlist = document.querySelector(".oip");
     let eachsong = document.querySelector(".oip").getElementsByTagName("li");
+    let songname = document.querySelector(".songname");
+    let duration=document.querySelector(".dur");
 
     playbtn.addEventListener("click", () => {
         if (songplay.paused) {
             songplay.play();
-            playbtn.src="assets/pause.svg"
+            playbtn.src = "assets/pause.svg"
 
         } else {
             songplay.pause();
-            playbtn.src="assets/play.svg"
+            playbtn.src = "assets/play.svg"
         }
     })
     for (let index = 0; index < songsarray.length; index++) {
@@ -137,27 +139,43 @@ async function main() {
         playlist.innerHTML += `<li class="normalhov music">${sp4}</li>`;
     }
     for (let index = 0; index < songsarray.length; index++) {
-        eachsong[index].addEventListener("click",()=>{
-            songplay.src=songsarray[index];
+        eachsong[index].addEventListener("click", () => {
+            songplay.src = songsarray[index];
             if (songplay.paused) {
                 songplay.play();
-                playbtn.src="assets/pause.svg"
+                playbtn.src = "assets/pause.svg"
             } else {
-                playbtn.src="assets/play.svg"
+                playbtn.src = "assets/play.svg"
 
                 songplay.pause();
             }
+            let sp1 = songsarray[index];
+            let sp2 = decodeURIComponent(sp1);
+            let sp3 = sp2.split("/Songs/")[1];
+            let sp4 = sp3.replaceAll(".mp3", " ")
+            songname.innerHTML=sp4;
 
         })
     }
+    document.addEventListener("keydown", (e) => {
+        if (e.key == " ") {
+            if (songplay.paused) {
+                songplay.play();
+                playbtn.src = "assets/pause.svg";
+            } else {
+                songplay.pause();
+                playbtn.src = "assets/play.svg";
+            }
+        }
 
+    })
+    songplay.addEventListener("timeupdate",()=>{
+        let secs=Math.floor((songplay.currentTime)%60);
+        let mins=Math.floor((songplay.currentTime)/60);
+        let osecs=Math.floor((songplay.duration)%60);
+        let omins=Math.floor((songplay.duration)/60);
+        duration.innerHTML=`${mins}:${secs}/${omins}:${osecs}`;
 
-
-
-
-
-
-
-
+    })
 }
 main();
