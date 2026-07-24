@@ -20,10 +20,11 @@ async function main() {
     let playlist = document.querySelector(".oip");
     let eachsong = document.querySelector(".oip").getElementsByTagName("li");
     let songname = document.querySelector(".songname");
-    let duration=document.querySelector(".dur");
+    let duration = document.querySelector(".dur");
+    let mutebtn = document.querySelector(".mute");
 
     song.src = songsarray[0];
- 
+
 
 
 
@@ -74,18 +75,40 @@ async function main() {
             songname2 = songname1.split("/Songs/")[1];
             songname3 = songname2.replaceAll(".mp3", "");
             songname.innerHTML = songname3;
-            
-            
+
+
         })
     }
-    song.addEventListener("timeupdate",()=>{
-        let sec=Math.floor(song.currentTime%60);
-        let min=Math.floor(song.currentTime/60);
-        let osec=Math.floor(song.duration%60);
-        let omin=Math.floor(song.duration/60);
-        
-        duration.innerHTML=`${min}:${sec}/${omin}:${osec}`;
+    song.addEventListener("timeupdate", () => {
+        let sec = Math.floor(song.currentTime % 60);
+        let min = Math.floor(song.currentTime / 60);
+        let osec = Math.floor(song.duration % 60);
+        let omin = Math.floor(song.duration / 60);
+
+        duration.innerHTML = `${min}:${sec}/${omin}:${osec}`;
     })
+    document.addEventListener("keydown", (e) => {
+        if (e.key == "m" || e.key == "M") {
+            if (song.volume == 0) {
+                song.volume = 1;
+                mutebtn.src = "assets/mute.svg";
+            } else {
+                song.volume = 0;
+                mutebtn.src = "assets/unmute.svg";
+            }
+        }
+    })
+    mutebtn.addEventListener("click",()=>{
+        if (song.volume==0) {
+            song.volume=1;
+            mutebtn.src="assets/mute.svg";
+        } else {
+            song.volume=0;
+            mutebtn.src="assets/unmute.svg";
+        }
+      
+    })
+
 
 
 
