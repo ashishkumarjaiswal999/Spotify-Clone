@@ -277,7 +277,7 @@
     list-style-position: inside;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap:4px;
     
 }
 
@@ -291,6 +291,7 @@
     border: 2px solid rgb(80, 79, 79);
     background-color: #2e3130;
     border-radius: 5px;
+
 
 }
 
