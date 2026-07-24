@@ -234,8 +234,11 @@
     border-radius: 10px;
     left: 50px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+
     
 }
 
@@ -307,9 +310,27 @@
     font-size: larger;
     position: absolute;
     right: 100px;
+    bottom: 18px;
 }
 .songname{
     position: absolute;
     left: 100px;
     font-size: larger;
+}
+.seekbar{
+    height: 2px;
+    width: 40vw;
+    border: 2px solid rgb(247, 244, 244);
+    position:absolute ;
+    left: 250px;
+    bottom: 1px;
+}
+.circle{
+    height: 1px;
+    width: 1px;
+    border: 6px solid rgb(255, 255, 255);
+    border-radius: 50px;
+    position: absolute;
+    bottom: -2px;
+    left: 245px;
 }
