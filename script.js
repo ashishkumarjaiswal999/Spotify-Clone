@@ -94,3 +94,25 @@
 //     })
 // }
 // main()
+async function fetcher() {
+    let fetch1= await fetch("assets/Songs/");
+    let fetch2= await fetch1.text();
+    let fetch3=document.createElement("div");
+    fetch3.innerHTML=fetch2;
+    let fetch4= fetch3.getElementsByTagName("a");
+    let arr=[];
+    for (let index = 0; index < fetch4.length; index++) {
+        if (fetch4[index].href.endsWith(".mp3")) {
+            arr.push(fetch4[index].href);
+        }
+    }
+    return arr;
+    
+}
+async function main() {
+    let songs1=await fetcher();
+    console.log(songs1); 
+
+    
+}
+main();
