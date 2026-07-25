@@ -25,6 +25,7 @@ async function main() {
     let circle = document.querySelector(".circle");
     let seekbar = document.querySelector(".seekbar");
     let right = document.querySelector(".right");
+    let left=document.querySelector(".left");
 
 
     let currentsong = 0;
@@ -131,6 +132,18 @@ async function main() {
             songname.innerHTML = songname3;
             playbtn.src = "assets/pause.svg";
 
+        }
+    })
+    left.addEventListener("click",()=>{
+        if (currentsong>0) {
+            currentsong--;
+            song.src=songsarray[currentsong];
+            song.play();
+            playbtn.src="assets/pause.svg";
+            songname1 = decodeURIComponent(songsarray[currentsong]);
+            songname2 = songname1.split("/Songs/")[1];
+            songname3 = songname2.replaceAll(".mp3", "");
+            songname.innerHTML = songname3;
         }
     })
 
