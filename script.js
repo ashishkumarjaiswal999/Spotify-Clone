@@ -25,7 +25,9 @@ async function main() {
     let circle = document.querySelector(".circle");
     let seekbar = document.querySelector(".seekbar");
     let right = document.querySelector(".right");
-    let left=document.querySelector(".left");
+    let left = document.querySelector(".left");
+    let volumeseek = document.querySelector(".volumeseek");
+    let volumecircle = document.querySelector(".volumecircle");
 
 
     let currentsong = 0;
@@ -77,7 +79,7 @@ async function main() {
                 playbtn.src = "assets/pause.svg";
             } else {
                 song.pause();
-                playbtn.src="assets/play.svg";
+                playbtn.src = "assets/play.svg";
             }
             songname1 = decodeURIComponent(songsarray[currentsong]);
             songname2 = songname1.split("/Songs/")[1];
@@ -134,17 +136,25 @@ async function main() {
 
         }
     })
-    left.addEventListener("click",()=>{
-        if (currentsong>0) {
+    left.addEventListener("click", () => {
+        if (currentsong > 0) {
             currentsong--;
-            song.src=songsarray[currentsong];
+            song.src = songsarray[currentsong];
             song.play();
-            playbtn.src="assets/pause.svg";
+            playbtn.src = "assets/pause.svg";
             songname1 = decodeURIComponent(songsarray[currentsong]);
             songname2 = songname1.split("/Songs/")[1];
             songname3 = songname2.replaceAll(".mp3", "");
             songname.innerHTML = songname3;
         }
+    })
+    volumeseek.addEventListener("click", (e) => {
+        let percent = e.offsetX/volumeseek.clientWidth;
+        song.volume = percent;
+        volumecircle.style.left=percent*100 +"%";
+        
+
+
     })
 
 
