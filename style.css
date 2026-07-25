@@ -335,3 +335,7 @@
     bottom: -2px;
     left: 245px;
 }
+.seekhov:hover{
+    cursor: pointer;
+
+}
