@@ -24,8 +24,11 @@ async function main() {
     let mutebtn = document.querySelector(".mute");
     let circle = document.querySelector(".circle");
     let seekbar = document.querySelector(".seekbar");
+    let right = document.querySelector(".right");
 
-    song.src = songsarray[0];
+
+    let currentsong = 0;
+    song.src = songsarray[currentsong];
 
 
 
@@ -61,25 +64,26 @@ async function main() {
         let playlist4 = playlist3.replaceAll(".mp3", "");
         playlist.innerHTML += `<li class="normalhov music">${playlist4}</li>`;
 
+
     }
 
     for (let index = 0; index < songsarray.length; index++) {
         eachsong[index].addEventListener("click", () => {
-            song.src = songsarray[index];
+            currentsong = index;
+            song.src = songsarray[currentsong];
             if (song.paused) {
                 song.play();
-                playbtn.src = "assets/pause.svg"
+                playbtn.src = "assets/pause.svg";
             } else {
                 song.pause();
-                playbtn.src = "assets/play.svg"
+                playbtn.src="assets/play.svg";
             }
-            songname1 = decodeURIComponent(songsarray[index]);
+            songname1 = decodeURIComponent(songsarray[currentsong]);
             songname2 = songname1.split("/Songs/")[1];
             songname3 = songname2.replaceAll(".mp3", "");
             songname.innerHTML = songname3;
-
-
         })
+
     }
     song.addEventListener("timeupdate", () => {
         let sec = Math.floor(song.currentTime % 60);
@@ -111,13 +115,24 @@ async function main() {
         }
 
     })
-    seekbar.addEventListener("click",(e)=>{
-        let percent= e.offsetX/seekbar.clientWidth;
-        song.currentTime=percent*song.duration;
-        circle.style.left=percent*100 +"%";
+    seekbar.addEventListener("click", (e) => {
+        let percent = e.offsetX / seekbar.clientWidth;
+        song.currentTime = percent * song.duration;
+        circle.style.left = percent * 100 + "%";
     })
+    right.addEventListener("click", () => {
+        if (currentsong < songsarray.length - 1) {
+            currentsong++;
+            song.src = songsarray[currentsong];
+            song.play();
+            songname1 = decodeURIComponent(songsarray[currentsong]);
+            songname2 = songname1.split("/Songs/")[1];
+            songname3 = songname2.replaceAll(".mp3", "");
+            songname.innerHTML = songname3;
+            playbtn.src = "assets/pause.svg";
 
-
+        }
+    })
 
 
 }
