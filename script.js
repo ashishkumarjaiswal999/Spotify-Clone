@@ -85,8 +85,9 @@ async function main() {
         let min = Math.floor(song.currentTime / 60);
         let osec = Math.floor(song.duration % 60);
         let omin = Math.floor(song.duration / 60);
-
         duration.innerHTML = `${min}:${sec}/${omin}:${osec}`;
+        let percent = (song.currentTime / song.duration) * 100;
+        circle.style.left = percent + '%';
     })
     document.addEventListener("keydown", (e) => {
         if (e.key == "m" || e.key == "M") {
@@ -108,10 +109,6 @@ async function main() {
             mutebtn.src = "assets/unmute.svg";
         }
 
-    })
-    song.addEventListener("timeupdate", () => {
-        let percent = (song.currentTime / song.duration) * 100;
-        circle.style.left = percent + '%';
     })
 
 
