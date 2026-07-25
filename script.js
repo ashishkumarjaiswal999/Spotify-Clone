@@ -23,6 +23,7 @@ async function main() {
     let duration = document.querySelector(".dur");
     let mutebtn = document.querySelector(".mute");
     let circle = document.querySelector(".circle");
+    let seekbar = document.querySelector(".seekbar");
 
     song.src = songsarray[0];
 
@@ -109,6 +110,11 @@ async function main() {
             mutebtn.src = "assets/unmute.svg";
         }
 
+    })
+    seekbar.addEventListener("click",(e)=>{
+        let percent= e.offsetX/seekbar.clientWidth;
+        song.currentTime=percent*song.duration;
+        circle.style.left=percent*100 +"%";
     })
 
 
