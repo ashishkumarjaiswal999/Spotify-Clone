@@ -22,6 +22,7 @@ async function main() {
     let songname = document.querySelector(".songname");
     let duration = document.querySelector(".dur");
     let mutebtn = document.querySelector(".mute");
+    let circle = document.querySelector(".circle");
 
     song.src = songsarray[0];
 
@@ -98,15 +99,19 @@ async function main() {
             }
         }
     })
-    mutebtn.addEventListener("click",()=>{
-        if (song.volume==0) {
-            song.volume=1;
-            mutebtn.src="assets/mute.svg";
+    mutebtn.addEventListener("click", () => {
+        if (song.volume == 0) {
+            song.volume = 1;
+            mutebtn.src = "assets/mute.svg";
         } else {
-            song.volume=0;
-            mutebtn.src="assets/unmute.svg";
+            song.volume = 0;
+            mutebtn.src = "assets/unmute.svg";
         }
-      
+
+    })
+    song.addEventListener("timeupdate", () => {
+        let percent = (song.currentTime / song.duration) * 100;
+        circle.style.left = percent + '%';
     })
 
 

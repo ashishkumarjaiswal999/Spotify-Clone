@@ -319,10 +319,10 @@
 }
 .seekbar{
     height: 2px;
-    width: 40vw;
+    width: 71vw;
     border: 2px solid rgb(247, 244, 244);
     position:absolute ;
-    left: 250px;
+    left: 5px;
     bottom: 1px;
 }
 .circle{
