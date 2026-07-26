@@ -1,107 +1,162 @@
-async function songsfetch() {
-    let fetchobj = await fetch("/assets/Songs/");
-    let txt = await fetchobj.text();
-    let folder = document.createElement("div");
-    folder.innerHTML = txt;
-    let data = folder.getElementsByTagName("a");
-    let songs = [];
-    for (let index = 0; index < data.length; index++) {
-        if (data[index].href.endsWith(".mp3")) {
-            songs.push(data[index].href);
+async function fetcher() {
+    let fetch1 = await fetch("assets/Songs/");
+    let fetch2 = await fetch1.text();
+    let fetch3 = document.createElement("div");
+    fetch3.innerHTML = fetch2;
+    let fetch4 = fetch3.getElementsByTagName("a");
+    let arr = [];
+    for (let index = 0; index < fetch4.length; index++) {
+        if (fetch4[index].href.endsWith(".mp3")) {
+            arr.push(fetch4[index].href);
         }
     }
-    return songs;
+    return arr;
+
 }
-
 async function main() {
-    let songarray = await songsfetch();
-    let audio = new Audio(songarray[0]);
-    let pl = document.querySelector(".play")
-    pl.addEventListener("click", () => {
-        if (audio.paused) {
-            audio.play();
-            pl.src = "/assets/pause.svg";
+    let songsarray = await fetcher();
+    let song = new Audio;
+    let playbtn = document.querySelector(".play");
+    let playlist = document.querySelector(".oip");
+    let eachsong = document.querySelector(".oip").getElementsByTagName("li");
+    let songname = document.querySelector(".songname");
+    let duration = document.querySelector(".dur");
+    let mutebtn = document.querySelector(".mute");
+    let circle = document.querySelector(".circle");
+    let seekbar = document.querySelector(".seekbar");
+    let right = document.querySelector(".right");
+    let left = document.querySelector(".left");
+    let volumeseek = document.querySelector(".volumeseek");
+    let volumecircle = document.querySelector(".volumecircle");
+
+
+    let currentsong = 0;
+    song.src = songsarray[currentsong];
+
+
+
+
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key == " ") {
+            if (song.paused) {
+                song.play();
+                playbtn.src = "assets/pause.svg"
+
+            }
+            else {
+                song.pause();
+                playbtn.src = "assets/play.svg"
+            }
+        }
+    })
+    playbtn.addEventListener("click", () => {
+        if (song.paused) {
+            song.play();
+            playbtn.src = "assets/pause.svg"
         } else {
-            audio.pause();
-            pl.src = "/assets/play.svg";
+            song.pause();
+            playbtn.src = "assets/play.svg"
+
         }
     })
-    let duration = document.querySelector(".dur")
-    let plist = document.querySelector(".oip");
-    for (let index = 0; index < songarray.length; index++) {
-        let u = songarray[index].split("/Songs/")[1];
-        let k = decodeURIComponent(u);
-        let names = k.replaceAll(".mp3", "")
-        plist.innerHTML += `<li class="normalhov music">${names}</li>`
+    for (let index = 0; index < songsarray.length; index++) {
+        let playlist1 = songsarray[index];
+        let playlist2 = playlist1.split("/Songs/")[1];
+        let playlist3 = decodeURIComponent(playlist2);
+        let playlist4 = playlist3.replaceAll(".mp3", "");
+        playlist.innerHTML += `<li class="normalhov music">${playlist4}</li>`;
+
+
     }
 
-    audio.addEventListener("timeupdate", () => {
-        let mins = Math.floor(audio.currentTime / 60);
-        let omins = Math.floor(audio.duration / 60);
-        let secs = Math.floor(audio.currentTime % 60);
-        let osecs = Math.floor(audio.duration % 60);
-        if (secs < 10) {
-            secs = "0" + secs;
-        }
-        if (mins < 1) {
-            mins = "0" + mins;
-        }
-        duration.innerHTML = `${mins}:${secs}/${omins}:${osecs}`;
-
-    })
-
-
-
-    let kik = document.querySelector(".oip").getElementsByTagName("li");
-    let i = document.querySelector(".songname");
-    let o = songarray[0].split("/Songs/")[1];
-    let r = decodeURIComponent(o);
-    let j = r.replaceAll(".mp3", " ")
-    i.innerHTML = j;
-    for (let index = 0; index < songarray.length; index++) {
-        kik[index].addEventListener("click", () => {
-            audio.src = songarray[index];
-            audio.play();
-            if (audio.paused) {
-                pl.src = "assets/play.svg"
-
+    for (let index = 0; index < songsarray.length; index++) {
+        eachsong[index].addEventListener("click", () => {
+            currentsong = index;
+            song.src = songsarray[currentsong];
+            if (song.paused) {
+                song.play();
+                playbtn.src = "assets/pause.svg";
             } else {
-                pl.src = "assets/pause.svg"
+                song.pause();
+                playbtn.src = "assets/play.svg";
             }
-            let o = songarray[index].split("/Songs/")[1];
-            let r = decodeURIComponent(o);
-            let j = r.replaceAll(".mp3", " ")
-            i.innerHTML = j;
-
+            songname1 = decodeURIComponent(songsarray[currentsong]);
+            songname2 = songname1.split("/Songs/")[1];
+            songname3 = songname2.replaceAll(".mp3", "");
+            songname.innerHTML = songname3;
         })
-    }
 
-    audio.addEventListener("loadedmetadata", () => {
-        let mins = Math.floor(audio.currentTime / 60);
-        let omins = Math.floor(audio.duration / 60);
-        let secs = Math.floor(audio.currentTime % 60);
-        let osecs = Math.floor(audio.duration % 60);
-        if (secs < 10) {
-            secs = "0" + secs;
-        }
-        if (mins < 1) {
-            mins = "0" + mins;
-        }
-        duration.innerHTML = `${mins}:${secs}/${omins}:${osecs}`;
+    }
+    song.addEventListener("timeupdate", () => {
+        let sec = Math.floor(song.currentTime % 60);
+        let min = Math.floor(song.currentTime / 60);
+        let osec = Math.floor(song.duration % 60);
+        let omin = Math.floor(song.duration / 60);
+        duration.innerHTML = `${min}:${sec}/${omin}:${osec}`;
+        let percent = (song.currentTime / song.duration) * 100;
+        circle.style.left = percent + '%';
     })
-    document.addEventListener("keydown",(e)=>{
-        if (e.key===" ") {
-            if (audio.paused) {
-                audio.play();
-                pl.src="assets/pause.svg";
+    document.addEventListener("keydown", (e) => {
+        if (e.key == "m" || e.key == "M") {
+            if (song.volume == 0) {
+                song.volume = 1;
+                mutebtn.src = "assets/mute.svg";
             } else {
-                audio.pause();
-                pl.src="assets/play.svg";
+                song.volume = 0;
+                mutebtn.src = "assets/unmute.svg";
             }
-            
         }
     })
+    mutebtn.addEventListener("click", () => {
+        if (song.volume == 0) {
+            song.volume = 1;
+            mutebtn.src = "assets/mute.svg";
+        } else {
+            song.volume = 0;
+            mutebtn.src = "assets/unmute.svg";
+        }
+
+    })
+    seekbar.addEventListener("click", (e) => {
+        let percent = e.offsetX / seekbar.clientWidth;
+        song.currentTime = percent * song.duration;
+        circle.style.left = percent * 100 + "%";
+    })
+    right.addEventListener("click", () => {
+        if (currentsong < songsarray.length - 1) {
+            currentsong++;
+            song.src = songsarray[currentsong];
+            song.play();
+            songname1 = decodeURIComponent(songsarray[currentsong]);
+            songname2 = songname1.split("/Songs/")[1];
+            songname3 = songname2.replaceAll(".mp3", "");
+            songname.innerHTML = songname3;
+            playbtn.src = "assets/pause.svg";
+
+        }
+    })
+    left.addEventListener("click", () => {
+        if (currentsong > 0) {
+            currentsong--;
+            song.src = songsarray[currentsong];
+            song.play();
+            playbtn.src = "assets/pause.svg";
+            songname1 = decodeURIComponent(songsarray[currentsong]);
+            songname2 = songname1.split("/Songs/")[1];
+            songname3 = songname2.replaceAll(".mp3", "");
+            songname.innerHTML = songname3;
+        }
+    })
+    volumeseek.addEventListener("click", (e) => {
+        let percent = e.offsetX/volumeseek.clientWidth;
+        song.volume = percent;
+        volumecircle.style.left=percent*100 +"%";
+        
+
+
+    })
+
+
 }
 main();
-
-
