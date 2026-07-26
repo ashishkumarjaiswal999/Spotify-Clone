@@ -67,15 +67,20 @@ async function displayAlbums() {
 
     }
     for (let index = 0; index < albums.length; index++) {
-        
+
         let albums1 = await fetch(`assets/Songs/${albums[index]}/info.json`);
         console.log(albums1.status);
         console.log(albums1.ok);
         let albums2 = await albums1.json();
         console.log(albums2);
-
+        cards.innerHTML += `<div data-folder=${albums[index]} class="card">
+        
+        <img src="assets/Songs/${albums[index]}/cover.jpg" alt="" class="im">
+            <h2 class="txt1">${albums2.title}</h2>
+            <p class="txt2">${albums2.description}</p>
+            </div>`
     }
 
 
 }
-displayAlbums()
+                displayAlbums()
