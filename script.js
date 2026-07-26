@@ -63,11 +63,18 @@ async function displayAlbums() {
     for (let index = 0; index < displayAlbums4.length; index++) {
         if (displayAlbums4[index].href.includes("/assets/Songs/")) {
             albums.push(displayAlbums4[index].href.split("/Songs/")[1]);
-
         }
 
     }
-    console.log(albums);
+    for (let index = 0; index < albums.length; index++) {
+        
+        let albums1 = await fetch(`assets/Songs/${albums[index]}/info.json`);
+        console.log(albums1.status);
+        console.log(albums1.ok);
+        let albums2 = await albums1.json();
+        console.log(albums2);
+
+    }
 
 
 }
