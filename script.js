@@ -1,15 +1,11 @@
 let currSong = new Audio();
 let songsarray = [];
 let currFolder;
-
+let playbtn = document.querySelector(".play");
 
 
 
 async function getSongs(folder) {
-
-
-
-
     currFolder = folder;
     let getSongs1 = await fetch(`/${folder}/`);
     let getSongs2 = await getSongs1.text();
@@ -46,7 +42,7 @@ async function getSongs(folder) {
 
 }
 function playsong(songname) {
-    let playbtn = document.querySelector(".play");
+    
     currSong.src = `/${currFolder}/` + songname;
     currSong.play();
     playbtn.src = "assets/pause.svg";
@@ -79,13 +75,30 @@ async function displayAlbums() {
             <p class="txt2">${albums2.description}</p>
             </div>`
     }
+    let allCards=document.querySelectorAll(".card");
+
     for (let index = 0; index < albums.length; index++) {
-        albums[index].addEventListener("click", () => {
-            console.log()
+        allCards[index].addEventListener("click", async() => {
+            await getSongs("assets/Songs/"+allCards[index].dataset.folder);
+
         })
 
     }
 
 
 }
-displayAlbums()
+// async function main() {
+//     await displayAlbums()
+//     let soong=await getSongs();
+//     console.log(soong);
+
+//     playbtn.addEventListener("click",()=>{
+//         if (currSong.paused) {
+//             playsong(soong[0])
+            
+//         }
+//     })
+    
+// }
+// main();
+displayAlbums();
