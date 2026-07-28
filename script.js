@@ -11,6 +11,8 @@ let nextbtn = document.querySelector(".right");
 let previousbtn = document.querySelector(".left");
 let volumeseek = document.querySelector(".volumeseek");
 let volumecircle = document.querySelector(".volumecircle");
+let songname = document.querySelector(".songname");
+
 
 async function getSongs(folder) {
     currFolder = folder;
@@ -40,6 +42,11 @@ async function getSongs(folder) {
         eachsong[index].addEventListener("click", () => {
             playsong(songsarray[index]);
             songindex = index;
+            let clean1 = decodeURIComponent(songsarray[index]);
+            let clean2 = clean1.replaceAll(".mp3", "");
+            songname.innerHTML = clean2;
+
+
 
         })
 
@@ -147,11 +154,14 @@ async function main() {
         let orgsecs = Math.floor(currSong.duration % 60);
         let orgmins = Math.floor(currSong.duration / 60);
         duration.innerHTML = `${mins}:${secs}/${orgmins}:${orgsecs}`;
+        let percent = currSong.currentTime / currSong.duration;
+        circle.style.left = percent * 100 + "%";
     })
     seekbar.addEventListener("click", (e) => {
         let percent = e.offsetX / seekbar.clientWidth;
         currSong.currentTime = percent * currSong.duration;
         circle.style.left = percent * 100 + "%";
+
     })
     nextbtn.addEventListener("click", () => {
         if (songindex < songsarray.length - 1) {
@@ -167,12 +177,12 @@ async function main() {
             currSong.play();
         }
     })
-    volumeseek.addEventListener("click",(e)=>{
-        let percent=e.offsetX/volumeseek.clientWidth;
-        console.log(percent)
-        currSong.volume=percent;
-        volumecircle.style.left=percent*100 +"%"
+    volumeseek.addEventListener("click", (e) => {
+        let percent = e.offsetX / volumeseek.clientWidth;
+        currSong.volume = percent;
+        volumecircle.style.left = percent * 100 + "%"
     })
+
 
 
 }
