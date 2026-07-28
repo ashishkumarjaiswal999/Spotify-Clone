@@ -152,11 +152,10 @@ async function main() {
         circle.style.left = percent * 100 + "%";
     })
     nextbtn.addEventListener("click", () => {
-        if (songindex < songsarray.length- 1) {
+        if (songindex < songsarray.length - 1) {
             songindex++;
-            currSong.src=songsarray[index ]
-            console.log(songsarray[index])
-            play(currSong);
+            currSong.src = `/${currFolder}/` + songsarray[songindex];
+            currSong.play();
         }
     })
 
