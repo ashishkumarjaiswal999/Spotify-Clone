@@ -158,6 +158,13 @@ async function main() {
             currSong.play();
         }
     })
+    previousbtn.addEventListener("click",()=>{
+        if (songindex>0) {
+            songindex--;
+            currSong.src=`/${currFolder}/` + songsarray[songindex];
+            currSong.play();    
+        }
+    })
 
 
 }
