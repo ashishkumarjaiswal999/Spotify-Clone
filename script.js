@@ -1,12 +1,14 @@
 let currSong = new Audio();
 let songsarray = [];
 let currFolder;
+let songindex = 0
 let playbtn = document.querySelector(".play");
 let mutebtn = document.querySelector(".mute");
-let duration=document.querySelector(".dur");
-let seekbar=document.querySelector(".seekbar");
-let circle=document.querySelector(".circle");
-
+let duration = document.querySelector(".dur");
+let seekbar = document.querySelector(".seekbar");
+let circle = document.querySelector(".circle");
+let nextbtn = document.querySelector(".right");
+let previousbtn = document.querySelector(".left");
 
 async function getSongs(folder) {
     currFolder = folder;
@@ -35,8 +37,10 @@ async function getSongs(folder) {
     for (let index = 0; index < songsarray.length; index++) {
         eachsong[index].addEventListener("click", () => {
             playsong(songsarray[index]);
+            songindex = index;
 
         })
+
 
 
     }
@@ -97,7 +101,7 @@ async function main() {
 
     playbtn.addEventListener("click", () => {
         if (currSong.paused) {
-            playsong(songsarray[0]);
+            playsong(songsarray[songindex]);
         }
         else {
             currSong.pause();
@@ -105,49 +109,57 @@ async function main() {
         }
     })
     mutebtn.addEventListener("click", () => {
-        if (currSong.volume==0) {
-            currSong.volume=1
-            mutebtn.src="assets/mute.svg";
+        if (currSong.volume == 0) {
+            currSong.volume = 1
+            mutebtn.src = "assets/mute.svg";
         } else {
-            currSong.volume=0;
-            mutebtn.src="assets/unmute.svg";
+            currSong.volume = 0;
+            mutebtn.src = "assets/unmute.svg";
         }
     })
-    document.addEventListener("keydown",(e)=>{
-        if (e.key==" ") {
+    document.addEventListener("keydown", (e) => {
+        if (e.key == " ") {
             if (currSong.paused) {
                 currSong.play();
-                playbtn.src="assets/pause.svg";
+                playbtn.src = "assets/pause.svg";
             } else {
                 currSong.pause();
-                playbtn.src="assets/play.svg";
+                playbtn.src = "assets/play.svg";
             }
         }
     })
-    document.addEventListener("keydown",(e)=>{
-        if (e.key=="m"||e.key=="M") {
-            if (currSong.volume==0) {
-                currSong.volume=1;
-                mutebtn.src="assets/mute.svg";
+    document.addEventListener("keydown", (e) => {
+        if (e.key == "m" || e.key == "M") {
+            if (currSong.volume == 0) {
+                currSong.volume = 1;
+                mutebtn.src = "assets/mute.svg";
             } else {
-                currSong.volume=0;
-                mutebtn.src="assets/unmute.svg";
+                currSong.volume = 0;
+                mutebtn.src = "assets/unmute.svg";
             }
         }
     })
-    currSong.addEventListener("timeupdate",()=>{
-        let secs=Math.floor(currSong.currentTime%60);
-        let mins=Math.floor(currSong.currentTime/60);
-        let orgsecs=Math.floor(currSong.duration%60);
-        let orgmins=Math.floor(currSong.duration/60);
-        duration.innerHTML=`${mins}:${secs}/${orgmins}:${orgsecs}`;
+    currSong.addEventListener("timeupdate", () => {
+        let secs = Math.floor(currSong.currentTime % 60);
+        let mins = Math.floor(currSong.currentTime / 60);
+        let orgsecs = Math.floor(currSong.duration % 60);
+        let orgmins = Math.floor(currSong.duration / 60);
+        duration.innerHTML = `${mins}:${secs}/${orgmins}:${orgsecs}`;
     })
-    seekbar.addEventListener("click",(e)=>{
-        let percent=e.offsetX/seekbar.clientWidth;
-        currSong.currentTime=percent*currSong.duration;
-        circle.style.left=percent*100 +"%";
+    seekbar.addEventListener("click", (e) => {
+        let percent = e.offsetX / seekbar.clientWidth;
+        currSong.currentTime = percent * currSong.duration;
+        circle.style.left = percent * 100 + "%";
     })
-    
+    nextbtn.addEventListener("click", () => {
+        if (songindex < songsarray.length- 1) {
+            songindex++;
+            currSong.src=songsarray[index ]
+            console.log(songsarray[index])
+            play(currSong);
+        }
+    })
+
 
 }
 main();
