@@ -40,7 +40,11 @@ async function getSongs(folder) {
     let eachsong = document.querySelector(".oip").getElementsByTagName("li");
     for (let index = 0; index < songsarray.length; index++) {
         eachsong[index].addEventListener("click", () => {
-            playsong(songsarray[index]);
+
+            currSong.src = `/${currFolder}/` + songsarray[index];
+            currSong.play();
+            playbtn.src = "assets/pause.svg";
+
             songindex = index;
             let clean1 = decodeURIComponent(songsarray[index]);
             let clean2 = clean1.replaceAll(".mp3", "");
@@ -50,18 +54,10 @@ async function getSongs(folder) {
 
         })
 
-
-
     }
     return songsarray;
 
 
-}
-function playsong(songname) {
-
-    currSong.src = `/${currFolder}/` + songname;
-    currSong.play();
-    playbtn.src = "assets/pause.svg";
 }
 
 
@@ -110,7 +106,9 @@ async function main() {
 
     playbtn.addEventListener("click", () => {
         if (currSong.paused) {
-            playsong(songsarray[songindex]);
+          
+            currSong.play();
+            playbtn.src = "assets/pause.svg";
         }
         else {
             currSong.pause();
@@ -169,6 +167,7 @@ async function main() {
             currSong.src = `/${currFolder}/` + songsarray[songindex];
             currSong.play();
         }
+
     })
     previousbtn.addEventListener("click", () => {
         if (songindex > 0) {
