@@ -61,7 +61,6 @@ async function getSongs(folder) {
 }
 
 
-
 async function displayAlbums() {
     let albums = [];
     let cards = document.querySelector(".cards");
@@ -91,6 +90,7 @@ async function displayAlbums() {
     for (let index = 0; index < albums.length; index++) {
         allCards[index].addEventListener("click", async () => {
             await getSongs("assets/Songs/" + allCards[index].dataset.folder);
+            songindex = 0;
 
         })
 
@@ -100,13 +100,13 @@ async function displayAlbums() {
 }
 async function main() {
     await displayAlbums()
-    getSongs("assets/Songs/Alec");
+    await getSongs("assets/Songs/Alec");
 
 
 
     playbtn.addEventListener("click", () => {
         if (currSong.paused) {
-          
+
             currSong.play();
             playbtn.src = "assets/pause.svg";
         }
@@ -166,6 +166,9 @@ async function main() {
             songindex++;
             currSong.src = `/${currFolder}/` + songsarray[songindex];
             currSong.play();
+            let clean1 = decodeURIComponent(songsarray[songindex]);
+            let clean2 = clean1.replaceAll(".mp3", "");
+            songname.innerHTML = clean2;
         }
 
     })
@@ -174,12 +177,30 @@ async function main() {
             songindex--;
             currSong.src = `/${currFolder}/` + songsarray[songindex];
             currSong.play();
+            let clean1 = decodeURIComponent(songsarray[songindex]);
+            let clean2 = clean1.replaceAll(".mp3", "");
+            songname.innerHTML = clean2;
+
         }
     })
     volumeseek.addEventListener("click", (e) => {
         let percent = e.offsetX / volumeseek.clientWidth;
         currSong.volume = percent;
         volumecircle.style.left = percent * 100 + "%"
+    })
+    currSong.addEventListener("ended", () => {
+        if (songindex < songsarray.length - 1) {
+            songindex++;
+            currSong.src = `/${currFolder}/` + songsarray[songindex];
+            currSong.play();
+            let clean1 = decodeURIComponent(songsarray[songindex]);
+            let clean2 = clean1.replaceAll(".mp3", "");
+            songname.innerHTML = clean2;
+            playbtn.src = "assets/pause.svg"
+        }
+        else {
+            playbtn.src = "assets/play.svg"
+        }
     })
 
 
