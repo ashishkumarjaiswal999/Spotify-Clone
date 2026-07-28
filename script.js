@@ -4,6 +4,8 @@ let currFolder;
 let playbtn = document.querySelector(".play");
 let mutebtn = document.querySelector(".mute");
 let duration=document.querySelector(".dur");
+let seekbar=document.querySelector(".seekbar");
+let circle=document.querySelector(".circle");
 
 
 async function getSongs(folder) {
@@ -139,9 +141,13 @@ async function main() {
         let orgsecs=Math.floor(currSong.duration%60);
         let orgmins=Math.floor(currSong.duration/60);
         duration.innerHTML=`${mins}:${secs}/${orgmins}:${orgsecs}`;
-
-
     })
+    seekbar.addEventListener("click",(e)=>{
+        let percent=e.offsetX/seekbar.clientWidth;
+        currSong.currentTime=percent*currSong.duration;
+        circle.style.left=percent*100 +"%";
+    })
+    
 
 }
 main();
