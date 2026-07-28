@@ -28,6 +28,8 @@ async function main() {
     let left = document.querySelector(".left");
     let volumeseek = document.querySelector(".volumeseek");
     let volumecircle = document.querySelector(".volumecircle");
+    
+
 
 
     let currentsong = 0;

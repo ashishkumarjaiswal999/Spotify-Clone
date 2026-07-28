@@ -9,6 +9,8 @@ let seekbar = document.querySelector(".seekbar");
 let circle = document.querySelector(".circle");
 let nextbtn = document.querySelector(".right");
 let previousbtn = document.querySelector(".left");
+let volumeseek = document.querySelector(".volumeseek");
+let volumecircle = document.querySelector(".volumecircle");
 
 async function getSongs(folder) {
     currFolder = folder;
@@ -158,12 +160,18 @@ async function main() {
             currSong.play();
         }
     })
-    previousbtn.addEventListener("click",()=>{
-        if (songindex>0) {
+    previousbtn.addEventListener("click", () => {
+        if (songindex > 0) {
             songindex--;
-            currSong.src=`/${currFolder}/` + songsarray[songindex];
-            currSong.play();    
+            currSong.src = `/${currFolder}/` + songsarray[songindex];
+            currSong.play();
         }
+    })
+    volumeseek.addEventListener("click",(e)=>{
+        let percent=e.offsetX/volumeseek.clientWidth;
+        console.log(percent)
+        currSong.volume=percent;
+        volumecircle.style.left=percent*100 +"%"
     })
 
 
