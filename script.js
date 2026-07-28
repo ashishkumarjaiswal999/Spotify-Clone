@@ -3,6 +3,7 @@ let songsarray = [];
 let currFolder;
 let playbtn = document.querySelector(".play");
 let mutebtn = document.querySelector(".mute");
+let duration=document.querySelector(".dur");
 
 
 async function getSongs(folder) {
@@ -109,6 +110,37 @@ async function main() {
             currSong.volume=0;
             mutebtn.src="assets/unmute.svg";
         }
+    })
+    document.addEventListener("keydown",(e)=>{
+        if (e.key==" ") {
+            if (currSong.paused) {
+                currSong.play();
+                playbtn.src="assets/pause.svg";
+            } else {
+                currSong.pause();
+                playbtn.src="assets/play.svg";
+            }
+        }
+    })
+    document.addEventListener("keydown",(e)=>{
+        if (e.key=="m"||e.key=="M") {
+            if (currSong.volume==0) {
+                currSong.volume=1;
+                mutebtn.src="assets/mute.svg";
+            } else {
+                currSong.volume=0;
+                mutebtn.src="assets/unmute.svg";
+            }
+        }
+    })
+    currSong.addEventListener("timeupdate",()=>{
+        let secs=Math.floor(currSong.currentTime%60);
+        let mins=Math.floor(currSong.currentTime/60);
+        let orgsecs=Math.floor(currSong.duration%60);
+        let orgmins=Math.floor(currSong.duration/60);
+        duration.innerHTML=`${mins}:${secs}/${orgmins}:${orgsecs}`;
+
+
     })
 
 }
