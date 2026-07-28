@@ -2,7 +2,7 @@ let currSong = new Audio();
 let songsarray = [];
 let currFolder;
 let playbtn = document.querySelector(".play");
-
+let mutebtn = document.querySelector(".mute");
 
 
 async function getSongs(folder) {
@@ -42,12 +42,11 @@ async function getSongs(folder) {
 
 }
 function playsong(songname) {
-    
+
     currSong.src = `/${currFolder}/` + songname;
     currSong.play();
     playbtn.src = "assets/pause.svg";
 }
-getSongs("assets/Songs/Alec");
 
 
 
@@ -71,15 +70,15 @@ async function displayAlbums() {
         let albums2 = await albums1.json();
         cards.innerHTML += `<div data-folder=${albums[index]} class="card">
         <img src="assets/Songs/${albums[index]}/cover.jpg" alt="" class="im">
-            <h2 class="txt1">${albums2.title}</h2>
-            <p class="txt2">${albums2.description}</p>
-            </div>`
+        <h2 class="txt1">${albums2.title}</h2>
+        <p class="txt2">${albums2.description}</p>
+        </div>`
     }
-    let allCards=document.querySelectorAll(".card");
+    let allCards = document.querySelectorAll(".card");
 
     for (let index = 0; index < albums.length; index++) {
-        allCards[index].addEventListener("click", async() => {
-            await getSongs("assets/Songs/"+allCards[index].dataset.folder);
+        allCards[index].addEventListener("click", async () => {
+            await getSongs("assets/Songs/" + allCards[index].dataset.folder);
 
         })
 
@@ -87,18 +86,31 @@ async function displayAlbums() {
 
 
 }
-// async function main() {
-//     await displayAlbums()
-//     let soong=await getSongs();
-//     console.log(soong);
+async function main() {
+    await displayAlbums()
+    getSongs("assets/Songs/Alec");
 
-//     playbtn.addEventListener("click",()=>{
-//         if (currSong.paused) {
-//             playsong(soong[0])
-            
-//         }
-//     })
-    
-// }
-// main();
-displayAlbums();
+
+
+    playbtn.addEventListener("click", () => {
+        if (currSong.paused) {
+            playsong(songsarray[0]);
+        }
+        else {
+            currSong.pause();
+            playbtn.src = "assets/play.svg";
+        }
+    })
+    mutebtn.addEventListener("click", () => {
+        if (currSong.volume==0) {
+            currSong.volume=1
+            mutebtn.src="assets/mute.svg";
+        } else {
+            currSong.volume=0;
+            mutebtn.src="assets/unmute.svg";
+        }
+    })
+
+}
+main();
+
